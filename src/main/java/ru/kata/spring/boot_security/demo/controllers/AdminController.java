@@ -24,11 +24,6 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    /*@GetMapping()
-    public String admin(Principal principal, ModelMap model) {
-        model.addAttribute("user", userService.getUserByUsername(principal.getName()));
-        return "admin";
-    }*/
     @GetMapping
     public String listUsers(ModelMap model, Principal principal, @AuthenticationPrincipal User user) {
         model.addAttribute("users", userService.listUsers());
@@ -49,33 +44,11 @@ public class AdminController {
         userService.editUser(user);
         return "redirect:/admin";
     }
-    /*
-    //вывод
-    @GetMapping//(value = "")
-    public String printAllUsers(ModelMap model, Principal principal, @AuthenticationPrincipal User user) {
-        model.addAttribute("users", userService.listUsers());
-        model.addAttribute("admin" , userService.getUserByUsername(principal.getName()));
-        model.addAttribute("newUser" ,new User());
-        model.addAttribute("roles" , roleService.getAllRoles());
-        return "admin";
-    }
-    //сохранение
-    @PostMapping
-    public String saveUser(@ModelAttribute("user") User user) {
-        userService.addUser(user);
-        return "redirect:/admin";
-    }*/
-    //удаление
+
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
-    /*
-    //сохранение изменений
-    @PatchMapping("/{id}")
-    public String update (@ModelAttribute("user") User user){
-        userService.editUser(user);
-        return "redirect:/admin";
-    }*/
+
 }

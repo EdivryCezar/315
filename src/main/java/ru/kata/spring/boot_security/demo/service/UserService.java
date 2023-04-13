@@ -11,7 +11,6 @@ public interface UserService {
     User getUserByUsername(String username);
     void addUser(User user);
     List<User> listUsers();
-    //User getUser(long id);
 
     void deleteUser(long id);
 

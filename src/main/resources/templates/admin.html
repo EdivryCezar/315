@@ -104,68 +104,68 @@
                             <div class="form-group required">
                               <div class="controls">
                                 <p>
-                                  <label for="idEditUser">
+                                  <label for="idEditUser1">
                                     <strong>Id</strong>
                                     <input class="form-control" th:type="number"
-                                           th:name="id" id="idEditUser"
+                                           th:name="id" id="idEditUser1"
                                            th:value="${user.id}" disabled>
                                   </label>
                                 </p>
                                 <p>
-                                  <label for="editUserName">
+                                  <label for="editUserName1">
                                     <strong>Имя</strong>
                                     <input class="form-control" th:type="text"
                                            th:name="name"
-                                           id="editUserName"
+                                           id="editUserName1"
                                            placeholder="Имя"
                                            th:value="${user.name}" required>
                                   </label>
                                 </p>
                                 <p>
-                                  <label for="editUserLastName">
+                                  <label for="editUserLastName1">
                                     <strong>Фамилия</strong>
                                     <input class="form-control" th:type="text"
                                            th:name="lastName"
-                                           id="editUserLastName"
+                                           id="editUserLastName1"
                                            placeholder="Фамилия"
                                            th:value="${user.lastName}" required>
                                   </label>
                                 </p>
 
                                 <p>
-                                  <label class="col-5" for="editUserAge" >
+                                  <label class="col-5" for="editUsername11" >
                                     <strong>Логин</strong>
                                     <input class="form-control" th:type="username"
                                            th:name="username"
-                                           id="editUserAge" placeholder="Логин"
+                                           id="editUsername11" placeholder="Логин"
                                            th:value="${user.username}" required>
                                   </label>
                                 </p>
 
                                 <p>
-                                  <label for="editUserEmail">
+                                  <label for="editUserEmail1">
                                     <strong>Email</strong>
-                                    <input class="form-control" th:type="email"
+                                    <input class="form-control" th:type="text"
                                            th:name="email"
-                                           id="editUserEmail" placeholder="Email"
+                                           id="editUserEmail1" placeholder="Email"
                                            th:value="${user.email}" required>
                                   </label>
                                 </p>
                                 <p>
-                                  <label for="editUserPassword">
+                                  <label for="editUserPassword1">
                                     <strong>Пароль</strong>
                                     <input class="form-control" th:type="password"
                                            th:name="password"
-                                           id="editUserPassword"
+                                           id="editUserPassword1"
                                            placeholder="Пароль"
                                            th:value="${user.password}" required>
                                   </label>
                                 </p>
                                 <label class="container-fluid col-6"
-                                       for="editUserRoles">
+                                       for="editUserRoles1">
                                   <strong>Роли</strong>
-                                  <select id="editUserRoles" class="form-select"
-                                          name="роли"
+                                  <select id="editUserRoles1" class="form-select"
+                                          name="roles"
                                           multiple size="2">
                                     <option th:each="role: ${roles}"
                                             th:value="${role.getId()}" >
@@ -215,22 +215,22 @@
                                   </label>
                                 </p>
                                 <p>
-                                  <label for="deleteUserName">
+                                  <label for="deleteUserName0">
                                     <strong>Имя</strong>
                                     <input class="form-control" type="text"
                                            name="Имя"
-                                           id="deleteUserName" disabled
+                                           id="deleteUserName0" disabled
                                            th:type="text"
                                            th:name="name"
                                            th:value="${user.name}">
                                   </label>
                                 </p>
                                 <p>
-                                  <label for="deleteUserLastName">
+                                  <label for="deleteUserLastName0">
                                     <strong>Фамилия</strong>
                                     <input class="form-control" type="text"
                                            name="lastName"
-                                           id="deleteUserLastName" disabled
+                                           id="deleteUserLastName0" disabled
                                            th:type="text"
                                            th:name="lastName"
                                            th:value="${user.lastName}">
@@ -238,10 +238,10 @@
                                 </p>
 
                                 <p>
-                                  <label for="deleteUsername">
+                                  <label for="deleteUsername01">
                                     <strong>Логин</strong>
                                     <input class="form-control" type="username"
-                                           name="id" id="deletUsername" disabled
+                                           name="id" id="deleteUsername01" disabled
                                            th:type="username"
                                            th:name="Username"
                                            th:value="${user.username}">
@@ -249,20 +249,20 @@
                                 </p>
 
                                 <p>
-                                  <label for="deleteUserEmail">
+                                  <label for="deleteUserEmail0">
                                     <strong>Email</strong>
                                     <input class="form-control" type="email"
                                            name="Email"
-                                           id="deleteUserEmail" disabled
-                                           th:type="email"
+                                           id="deleteUserEmail0" disabled
+                                           th:type="text"
                                            th:name="email"
                                            th:value="${user.email}">
                                   </label>
                                 </p>
                                 <label class="container-fluid col-6"
-                                       for="deleteUserRoles">
+                                       for="deleteUserRoles0">
                                   <strong>Роли</strong>
-                                  <select id="deleteUserRoles" class="form-select"
+                                  <select id="deleteUserRoles0" class="form-select"
                                           name="roles"
                                           multiple size="2" disabled>
                                     <option th:each="role: ${user.roles}">
@@ -347,7 +347,7 @@
 
                     <label class="container-fluid" for="newUserRoles">
                       <strong>Роли</strong>
-                      <select id="newUserRoles" class="form-select" name="role"
+                      <select id="newUserRoles" class="form-select" name="roles"
                               multiple size="2">
                         <option th:each="role: ${roles}" th:value="${role.getId()}" >
                           <th:block th:text="${role.getRole()}">

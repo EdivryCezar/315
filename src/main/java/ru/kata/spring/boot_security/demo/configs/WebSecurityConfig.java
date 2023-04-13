@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()/*.loginPage("/login*").loginProcessingUrl("/login")*/.successHandler(successUserHandler)
+                .formLogin().successHandler(successUserHandler)
                 .permitAll()
                 .and()
                 .logout()
@@ -41,23 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login");
     }
 
-    // аутентификация inMemory
-    /*@Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("user"))
-                .roles("USER")
-                .build(),
-                User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build()
-                );
-    }*/
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
