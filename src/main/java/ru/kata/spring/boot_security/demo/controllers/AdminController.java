@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -28,51 +29,53 @@ public class AdminController {
         model.addAttribute("user", userService.getUserByUsername(principal.getName()));
         return "admin";
     }*/
-    //вывод
-    @GetMapping(value = "")
-    public String printAllUsers(ModelMap model) {
-        users = userService.listUsers();
-        model.addAttribute("listUsers", users);
+    @GetMapping
+    public String listUsers(ModelMap model, Principal principal, @AuthenticationPrincipal User user) {
+        model.addAttribute("users", userService.listUsers());
+        model.addAttribute("admin" , userService.getUserByUsername(principal.getName()));
+        model.addAttribute("newUser" ,new User());
+        model.addAttribute("roles" , roleService.getAllRoles());
         return "admin";
     }
-    //создание
-    @GetMapping("/create_user")
-    public String createUser(ModelMap model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "/admin/create_user";
+
+    @PostMapping
+    public String createNewUser(@ModelAttribute("user") User user) {
+        userService.addUser(user);
+        return "redirect:/admin";
+    }
+
+    @PatchMapping("/{id}")
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.editUser(user);
+        return "redirect:/admin";
+    }
+    /*
+    //вывод
+    @GetMapping//(value = "")
+    public String printAllUsers(ModelMap model, Principal principal, @AuthenticationPrincipal User user) {
+        model.addAttribute("users", userService.listUsers());
+        model.addAttribute("admin" , userService.getUserByUsername(principal.getName()));
+        model.addAttribute("newUser" ,new User());
+        model.addAttribute("roles" , roleService.getAllRoles());
+        return "admin";
     }
     //сохранение
     @PostMapping
     public String saveUser(@ModelAttribute("user") User user) {
         userService.addUser(user);
         return "redirect:/admin";
-    }
+    }*/
     //удаление
-    @GetMapping("/delete_user")
-    public String deleteUser(@RequestParam("id") long id) {
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
-    //редактирование
-    @GetMapping("/edit_user")
-    public String editUser (@RequestParam("id") long id, ModelMap model) {
-        model.addAttribute("user", userService.getUserById(id));
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/edit_user";
-    }
+    /*
     //сохранение изменений
     @PatchMapping("/{id}")
-    public String update (@ModelAttribute("user") User user,
-                          @RequestParam("id") long id){
+    public String update (@ModelAttribute("user") User user){
         userService.editUser(user);
         return "redirect:/admin";
-    }
-    //инфо
-    @GetMapping("/info")
-    public String getUser (@RequestParam("id") long id, ModelMap model) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "admin/info";
-    }
+    }*/
 }

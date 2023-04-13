@@ -9,6 +9,4 @@ public interface RoleService {
     Role getRoleById(Long id);
     List<Role> getAllRoles();
 
-
-
 }

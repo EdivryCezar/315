@@ -27,7 +27,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public List<User> listUsers() {
         return userRepo.findAll();
     }
@@ -59,22 +58,27 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void editUser(User updateUser) {
+    public void editUser(User user) {
 
-        if (!updateUser.getPassword().equals(getUserById(updateUser.getId()).getPassword())){
-            updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+        if (userRepo.findByUsername(user.getUsername()).getPassword().equals(user.getPassword())) {
+            userRepo.save(user);
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepo.save(user);
         }
-        userRepo.save(updateUser);
     }
 
-    @Override
+   @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getUserByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername()
-                , user.getPassword(), user.getAuthorities());
+        return user;
+//                new org.springframework.security.core.userdetails.User(user.getUsername()
+//                , user.getPassword(), user.getAuthorities());
     }
+
+
 }
