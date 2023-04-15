@@ -58,9 +58,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void editUser(User user) {
-
-        if (userRepo.findByUsername(user.getUsername()).getPassword().equals(user.getPassword())) {
+    public void editUser(User user, Long id) {
+        if (userRepo.findById(id).get().getPassword().equals(user.getPassword())) {
             userRepo.save(user);
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));

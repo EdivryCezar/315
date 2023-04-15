@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.configs;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
+                .loginProcessingUrl("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
                 .permitAll()
                 .and()
                 .logout()
@@ -47,5 +52,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
         daoAuthenticationProvider.setUserDetailsService(userServiceImp);
         return daoAuthenticationProvider;
+    }
+
+    @Bean
+    public ObjectMapper getMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        return objectMapper;
     }
 }

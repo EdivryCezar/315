@@ -8,10 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -37,11 +34,13 @@ public class User implements UserDetails {
 
     }
 
-    public User(long id, String name, String lastName, String email) {
+    public User(long id, String name, String lastName, String email, String password, Collection<Role> roles) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
     public Collection<Role> getRoles() {
         return roles;
